@@ -1,7 +1,7 @@
 from PyKakao import Message
 
 # 메시지 API 인스턴스 생성
-MSG = Message(service_key = "8d64b5119f06ed97c3551469998e2f17")
+MSG = Message(service_key = "User Service Key")
 
 # 카카오 인증코드 발급 URL 생성
 auth_url = MSG.get_url_for_generating_code()
