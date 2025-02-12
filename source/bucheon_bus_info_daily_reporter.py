@@ -5,24 +5,25 @@ import json
 import math
 
 # 메시지 API 인스턴스 생성
-with open("BIS/data/service_key.json", "r") as f:
+with open("Github/BIS/data/service_keys.json", "r") as f:
     service = json.load(f)
-service_key = service["service_key"]
-MSG = Message(service_key)
+kakao_service_key = service["kakao_service_key"]
+api_service_key = service["api_service_key"]
+MSG = Message(kakao_service_key)
 
 # 액세스 토큰 설정
-with open("BIS/data/full_response.json", "r") as f:
+with open("Github/BIS/data/full_response.json", "r") as f:
     config = json.load(f)
 access_token = config["access_token"]
 MSG.set_access_token(access_token)
 
-data_url = "https://apis.data.go.kr/6410000/busarrivalservice/v2/getBusArrivalListv2?format=json&serviceKey=uqjqXQ2xwev7KRzfVVKjuYa08T1HSinZzgo5%2BswZ5mDhE6ML1elq9X5BfWI6SaMSZBBLPux92Yb%2F3R8%2BgxZB7Q%3D%3D&stationId=200000419"
+data_url = f"https://apis.data.go.kr/6410000/busarrivalservice/v2/getBusArrivalListv2?format=json&serviceKey={api_service_key}&stationId=200000419"
 response = requests.get(data_url)
 contents = response.text
 print(contents)
 
 # JSON 파일에 저장
-with open("BIS/data/data.json", "w") as f:
+with open("Github/BIS/data/data.json", "w") as f:
     json.dump(contents, f)
 
 # JSON 데이터 파싱
@@ -45,7 +46,7 @@ print(df)
 print(subset_df)
 
 # 또는 CSV 파일로 저장
-subset_df.to_csv("BIS/data/bus_arrival_data.csv", encoding="utf-8", index=True)
+subset_df.to_csv("Github/BIS/data/bus_arrival_data.csv", encoding="utf-8", index=True)
 data_list = subset_df.to_numpy().tolist()
 result = []
 for i in data_list:
